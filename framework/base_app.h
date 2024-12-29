@@ -2,14 +2,14 @@
 
 #include "window.h"
 
-#include <memory>
-
 namespace vks
 {
     class BaseApp
     {
     public:
-        BaseApp(std::string title = "Vulkan", uint32_t width = 800, uint32_t height = 600);
+        BaseApp();
+        BaseApp(std::string title, uint32_t width, uint32_t height);
+        
         ~BaseApp() = default;
 
         BaseApp(const BaseApp&) = delete;
@@ -20,7 +20,14 @@ namespace vks
 
         void Run();
 
+    protected:
+        virtual void Prepare();
+        virtual void Update();
+        virtual void Finish();
+
     private:
         std::unique_ptr<Window> window;
+
+        vk::Instance instance;
     };
 }

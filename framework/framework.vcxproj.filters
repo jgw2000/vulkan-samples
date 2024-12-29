@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClInclude Include="window.h" />
     <ClInclude Include="base_app.h" />
+    <ClInclude Include="api.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp" />

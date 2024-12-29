@@ -1,11 +1,11 @@
-#include "base_app.h"
+#include "hpp_hello_triangle.h"
 
 #include <iostream>
 #include <stdexcept>
 
 int main()
 {
-    vks::BaseApp app{};
+    vks::HppHelloTriangle app{"Hello Triangle", 800, 600};
 
     try {
         app.Run();

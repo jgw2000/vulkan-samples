@@ -1,16 +1,15 @@
 #pragma once
 
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
+#include "api.h"
 
-#include <string>
+#include <GLFW/glfw3.h>
 
 namespace vks
 {
     class Window
     {
     public:
-        Window(std::string name, uint32_t w, uint32_t h);
+        Window(std::string name = "Vulkan", uint32_t w = 800, uint32_t h = 600);
         ~Window();
 
         Window(const Window&) = delete;

@@ -1,7 +1,5 @@
 #include "window.h"
 
-#include <stdexcept>
-
 namespace vks
 {
     Window::Window(std::string name, uint32_t w, uint32_t h)
