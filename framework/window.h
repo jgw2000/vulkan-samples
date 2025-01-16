@@ -21,6 +21,10 @@ namespace vks
         bool ShouldClose() const { return glfwWindowShouldClose(handle); }
         void ProcessEvents() const { glfwPollEvents(); }
 
+        std::vector<const char*> GetRequiredExtensions() const;
+
+        VkSurfaceKHR CreateSurface(VkInstance instance);
+
     private:
         void __Init();
 

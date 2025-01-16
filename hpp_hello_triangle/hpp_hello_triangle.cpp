@@ -1,31 +1,55 @@
 #include "hpp_hello_triangle.h"
 
-VULKAN_HPP_DEFAULT_DISPATCH_LOADER_DYNAMIC_STORAGE
-
 namespace vks
 {
     void HppHelloTriangle::Prepare()
     {
-        __CreateInstance();
+        __instance = CreateInstance({ VK_KHR_SURFACE_EXTENSION_NAME }, {});
+        __SelectPhysicalDevice();
+        __device = CreateDevice(__physical_device, { VK_KHR_SWAPCHAIN_EXTENSION_NAME }, __graphics_queue_index.value());
+        __graphics_queue = __device.getQueue(__graphics_queue_index.value(), 0);
+        __surface = static_cast<vk::SurfaceKHR>(window->CreateSurface(static_cast<VkInstance>(__instance)));
+    }
+
+    void HppHelloTriangle::Update()
+    {
+
     }
 
     void HppHelloTriangle::Finish()
     {
+        __instance.destroySurfaceKHR(__surface);
+        __device.destroy();
         __instance.destroy();
     }
 
-    void HppHelloTriangle::__CreateInstance()
+    void HppHelloTriangle::__SelectPhysicalDevice()
     {
-        static vk::DynamicLoader dl;
-        PFN_vkGetInstanceProcAddr vkGetInstanceProcAddr = dl.getProcAddress<PFN_vkGetInstanceProcAddr>("vkGetInstanceProcAddr");
-        VULKAN_HPP_DEFAULT_DISPATCHER.init(vkGetInstanceProcAddr);
+        std::vector<vk::PhysicalDevice> physicalDevices = __instance.enumeratePhysicalDevices();
+        for (const auto& physicalDevice : physicalDevices) {
+            auto physicalDeviceProperties = physicalDevice.getProperties();
+            auto physicalDeviceFeatures = physicalDevice.getFeatures();
+            auto queueFamilyProperties = physicalDevice.getQueueFamilyProperties();
 
-        vk::ApplicationInfo app("Hello Triangle", {}, "Vulkan", {}, VK_MAKE_VERSION(1, 0, 0));
-        vk::InstanceCreateInfo instanceInfo({}, &app, {}, {});
+            if (physicalDeviceProperties.deviceType != vk::PhysicalDeviceType::eDiscreteGpu)
+                continue;
 
-        __instance = vk::createInstance(instanceInfo);
+            bool foundGraphicsQueue = false;
+            for (uint32_t i = 0; i < queueFamilyProperties.size(); ++i) {
+                if (queueFamilyProperties[i].queueFlags & vk::QueueFlagBits::eGraphics) {
+                    foundGraphicsQueue = true;
+                    __graphics_queue_index = i;
+                    __physical_device = physicalDevice;
+                    break;
+                }
+            }
 
-        // initialize function pointers for instance
-        VULKAN_HPP_DEFAULT_DISPATCHER.init(__instance);
+            if (!foundGraphicsQueue)
+                continue;
+
+            return;
+        }
+
+        throw std::runtime_error("Failed to find a suitable gpu.");
     }
 }

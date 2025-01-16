@@ -2,6 +2,8 @@
 
 #include "window.h"
 
+#define VULKAN_HPP_DISPATCH_LOADER_DYNAMIC 1
+
 namespace vks
 {
     class BaseApp
@@ -21,13 +23,26 @@ namespace vks
         void Run();
 
     protected:
-        virtual void Prepare();
-        virtual void Update();
-        virtual void Finish();
+        struct SwapchainData
+        {
+            vk::Extent2D                    extent;
+            vk::Format                      format = vk::Format::eUndefined;
+            vk::SwapchainKHR                swapchain;
+            std::vector<vk::ImageView>      imageViews;
+            std::vector<vk::Framebuffer>    framebuffers;
+        };
 
-    private:
+        virtual void Prepare() = 0;
+        virtual void Update() = 0;
+        virtual void Finish() = 0;
+
+        vk::Instance    CreateInstance(const std::vector<const char*>& required_instance_extensions, const std::vector<const char*>& required_validation_layers);
+        vk::Device      CreateDevice(const vk::PhysicalDevice& physicalDevice, const std::vector<const char*>& required_device_extensions, uint32_t graphics_queue_index);
+
         std::unique_ptr<Window> window;
 
-        vk::Instance instance;
+    private:
+        bool __ValidateExtensions(const std::vector<const char*>& required, const std::vector<vk::ExtensionProperties>& available);
+        bool __ValidateLayers(const std::vector<const char*>& required, const std::vector<vk::LayerProperties>& available);
     };
 }

@@ -2,6 +2,8 @@
 
 #include "base_app.h"
 
+#include <optional>
+
 namespace vks
 {
     class HppHelloTriangle : public BaseApp
@@ -18,11 +20,21 @@ namespace vks
 
     protected:
         virtual void Prepare() override;
+        virtual void Update() override;
         virtual void Finish() override;
 
     private:
-        void __CreateInstance();
+        void __SelectPhysicalDevice();
 
-        vk::Instance __instance;
+        // Setup
+        vk::Instance            __instance;
+        vk::PhysicalDevice      __physical_device;
+        std::optional<uint32_t> __graphics_queue_index{};
+        vk::Device              __device;
+        vk::Queue               __graphics_queue;
+
+        // Presentation
+        vk::SurfaceKHR          __surface;
+        SwapchainData           __swapchain_data;
     };
 }
