@@ -1,38 +1,72 @@
 #pragma once
 
-#include "api.h"
+#include <string>
+#include <vector>
 
-#include <GLFW/glfw3.h>
+struct GLFWwindow;
 
-namespace vks
+namespace vkb
 {
     class Window
     {
     public:
-        Window(std::string name = "Vulkan", uint32_t w = 800, uint32_t h = 600);
-        ~Window();
+        struct Extent
+        {
+            uint32_t width;
+            uint32_t height;
+        };
 
-        Window(const Window&) = delete;
-        Window& operator=(const Window&) = delete;
+        enum class Mode
+        {
+            Headless,
+            Fullscreen,
+            FullscreenBorderless,
+            Default
+        };
 
-        Window(const Window&&) = delete;
-        Window& operator=(const Window&&) = delete;
+        enum class Vsync
+        {
+            OFF,
+            ON,
+            Default
+        };
 
-        bool ShouldClose() const { return glfwWindowShouldClose(handle); }
-        void ProcessEvents() const { glfwPollEvents(); }
+        struct Properties
+        {
+            std::string title       = "";
+            Mode        mode        = Mode::Default;
+            bool        resizable   = true;
+            Vsync       vsync       = Vsync::Default;
+            Extent      extent      = { 1280, 720 };
+        };
 
-        std::vector<const char*> GetRequiredExtensions() const;
+        Window(const Properties& properties);
+        virtual ~Window();
 
-        VkSurfaceKHR CreateSurface(VkInstance instance);
+        virtual bool should_close();
 
-    private:
-        void __Init();
+        virtual void close();
 
-    private:
-        GLFWwindow* handle;
+        virtual void process_events();
 
-        std::string title;
-        uint32_t width;
-        uint32_t height;
+        virtual float get_content_scale_factor() const;
+
+        Extent resize(const Extent& extent);
+
+        const Extent& get_extent() const;
+
+        Mode get_window_mode() const;
+
+        inline const Properties& get_properties() const
+        {
+            return properties;
+        }
+
+        std::vector<const char*> get_required_surface_extensions() const;
+
+    protected:
+        Properties properties;
+
+        GLFWwindow* handle = nullptr;
     };
 }

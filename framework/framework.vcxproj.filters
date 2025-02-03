@@ -2,11 +2,23 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="window.h" />
-    <ClInclude Include="base_app.h" />
-    <ClInclude Include="api.h" />
+    <ClInclude Include="application.h" />
+    <ClInclude Include="vulkan_sample.h" />
+    <ClInclude Include="core\hpp_instance.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp" />
-    <ClCompile Include="base_app.cpp" />
+    <ClCompile Include="application.cpp" />
+    <ClCompile Include="vulkan_sample.cpp" />
+    <ClCompile Include="core\hpp_instance.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{4faa29b4-5cf1-4300-905e-b18b90b2e961}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

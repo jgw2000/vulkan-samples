@@ -1,19 +1,15 @@
-#include "hpp_hello_triangle.h"
-
 #include <iostream>
 #include <stdexcept>
 
+#include "vulkan_sample.h"
+
 int main()
 {
-    vks::HppHelloTriangle app{"Hello Triangle", 800, 600};
+    vkb::Window::Properties properties;
+    properties.title = "Hello World";
 
-    try {
-        app.Run();
-    }
-    catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
+    vkb::VulkanSample sample;
+    sample.run(properties);
 
     return EXIT_SUCCESS;
 }
