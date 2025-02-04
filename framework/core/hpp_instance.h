@@ -9,22 +9,26 @@
 
 namespace vkb
 {
+	class HPPPhysicalDevice;
+
 	class HPPInstance
 	{
 	public:
+		HPPInstance(const std::string& application_name,
+					const std::unordered_map<const char*, bool>& required_extensions = {},
+					const std::vector<const char*>& required_validation_layers = {},
+					uint32_t									 api_version = VK_API_VERSION_1_0);
+		~HPPInstance();
+
 		HPPInstance(const HPPInstance&) = delete;
 		HPPInstance(HPPInstance&&) = delete;
-		~HPPInstance();
 
 		HPPInstance& operator=(const HPPInstance&) = delete;
 		HPPInstance& operator=(HPPInstance&&) = delete;
 
-		HPPInstance(const std::string& application_name,
-					const std::unordered_map<const char*, bool>& required_extensions = {},
-					const std::vector<const char*>&				 required_validation_layers = {},
-					uint32_t									 api_version = VK_API_VERSION_1_0);
-
 		vk::Instance get_handle() const;
+
+		HPPPhysicalDevice& get_suitable_gpu(vk::SurfaceKHR surface, bool headless_surface);
 
 	private:
 		void query_gpus();
@@ -39,5 +43,7 @@ namespace vkb
 #endif
 
 		std::vector<const char*> enabled_extensions;
+
+		std::vector<std::unique_ptr<HPPPhysicalDevice>> gpus;
 	};
 }

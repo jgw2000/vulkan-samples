@@ -1,5 +1,7 @@
 #pragma once
 
+#define VK_NO_PROTOTYPES
+#include <vulkan/vulkan.hpp>
 #include <string>
 #include <vector>
 
@@ -42,6 +44,8 @@ namespace vkb
 
         Window(const Properties& properties);
         virtual ~Window();
+
+        virtual VkSurfaceKHR create_surface(VkInstance instance);
 
         virtual bool should_close();
 

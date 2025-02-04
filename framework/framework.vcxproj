@@ -20,13 +20,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="core\hpp_device.h" />
     <ClInclude Include="core\hpp_instance.h" />
+    <ClInclude Include="core\hpp_physical_device.h" />
+    <ClInclude Include="core\vulkan_resource.h" />
     <ClInclude Include="vulkan_sample.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="core\hpp_device.cpp" />
     <ClCompile Include="core\hpp_instance.cpp" />
+    <ClCompile Include="core\hpp_physical_device.cpp" />
     <ClCompile Include="vulkan_sample.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>

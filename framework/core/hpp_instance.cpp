@@ -1,4 +1,5 @@
 #include "hpp_instance.h"
+#include "hpp_physical_device.h"
 #include "spdlog/spdlog.h"
 
 namespace vkb
@@ -233,6 +234,27 @@ namespace vkb
 		return handle;
 	}
 
+	HPPPhysicalDevice& HPPInstance::get_suitable_gpu(vk::SurfaceKHR surface, bool headless)
+	{
+		for (auto& gpu : gpus)
+		{
+			if (gpu->get_properties().deviceType == vk::PhysicalDeviceType::eDiscreteGpu)
+			{
+				size_t queue_count = gpu->get_queue_family_properties().size();
+				for (uint32_t queue_idx = 0; static_cast<size_t>(queue_idx) < queue_count; ++queue_idx)
+				{
+					if (gpu->get_handle().getSurfaceSupportKHR(queue_idx, surface))
+					{
+						return *gpu;
+					}
+				}
+			}
+		}
+
+		spdlog::warn("Couldn't find a discrete physical device, picking default GPU");
+		return *gpus[0];
+	}
+
 	void HPPInstance::query_gpus()
 	{
 		auto physical_devices = handle.enumeratePhysicalDevices();
@@ -243,7 +265,7 @@ namespace vkb
 
 		for (auto& physical_device : physical_devices)
 		{
-
+			gpus.push_back(std::make_unique<vkb::HPPPhysicalDevice>(*this, physical_device));
 		}
 	}
 }

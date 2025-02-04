@@ -7,12 +7,27 @@
     <ClInclude Include="core\hpp_instance.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="core\hpp_physical_device.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\vulkan_resource.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\hpp_device.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp" />
     <ClCompile Include="application.cpp" />
     <ClCompile Include="vulkan_sample.cpp" />
     <ClCompile Include="core\hpp_instance.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\hpp_physical_device.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\hpp_device.cpp">
       <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>

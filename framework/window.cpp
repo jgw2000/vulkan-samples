@@ -55,6 +55,24 @@ namespace vkb
         glfwTerminate();
     }
 
+    VkSurfaceKHR Window::create_surface(VkInstance instance)
+    {
+        if (instance == VK_NULL_HANDLE || !handle)
+        {
+            return VK_NULL_HANDLE;
+        }
+
+        VkSurfaceKHR surface;
+        VkResult errCode = glfwCreateWindowSurface(instance, handle, NULL, &surface);
+
+        if (errCode != VK_SUCCESS)
+        {
+            return nullptr;
+        }
+
+        return surface;
+    }
+
     bool Window::should_close()
     {
         return glfwWindowShouldClose(handle);
