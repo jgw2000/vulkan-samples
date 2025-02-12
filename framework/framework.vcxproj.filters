@@ -16,6 +16,15 @@
     <ClInclude Include="core\hpp_device.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="core\hpp_queueu.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="render\hpp_render_context.h">
+      <Filter>render</Filter>
+    </ClInclude>
+    <ClInclude Include="core\hpp_swapchain.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="window.cpp" />
@@ -30,10 +39,22 @@
     <ClCompile Include="core\hpp_device.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\hpp_queue.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="render\hpp_render_context.cpp">
+      <Filter>render</Filter>
+    </ClCompile>
+    <ClCompile Include="core\hpp_swapchain.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="core">
       <UniqueIdentifier>{4faa29b4-5cf1-4300-905e-b18b90b2e961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="render">
+      <UniqueIdentifier>{28a48884-1f61-470b-a522-f4893413f7c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -6,11 +6,13 @@ namespace vkb
 {
 	VulkanSample::~VulkanSample()
 	{
+		render_context.reset();
+
 		if (surface)
 		{
 			instance->get_handle().destroySurfaceKHR(surface);
 		}
-
+		
 		device.reset();
 		instance.reset();
 	}
@@ -53,6 +55,8 @@ namespace vkb
 
 		VULKAN_HPP_DEFAULT_DISPATCHER.init(device->get_handle());
 
+		create_render_context();
+
 		return true;
 	}
 
@@ -69,5 +73,23 @@ namespace vkb
 	void VulkanSample::add_device_extension(const char* extension, bool optional)
 	{
 		device_extensions[extension] = optional;
+	}
+
+	void VulkanSample::create_render_context()
+	{
+		create_render_context_impl(surface_priority_list);
+	}
+
+	void VulkanSample::create_render_context(const std::vector<vk::SurfaceFormatKHR>& surface_priority_list)
+	{
+		create_render_context_impl(surface_priority_list);
+	}
+
+	void VulkanSample::create_render_context_impl(const std::vector<vk::SurfaceFormatKHR>& surface_priority_list)
+	{
+		vk::PresentModeKHR present_mode = (window->get_properties().vsync == Window::Vsync::ON) ? vk::PresentModeKHR::eFifo : vk::PresentModeKHR::eMailbox;
+		std::vector<vk::PresentModeKHR> present_mode_priority_list{vk::PresentModeKHR::eMailbox, vk::PresentModeKHR::eImmediate, vk::PresentModeKHR::eFifo};
+		render_context =
+			std::make_unique<vkb::HPPRenderContext>(*device, surface, *window, present_mode, present_mode_priority_list, surface_priority_list);
 	}
 }

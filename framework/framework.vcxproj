@@ -23,7 +23,10 @@
     <ClInclude Include="core\hpp_device.h" />
     <ClInclude Include="core\hpp_instance.h" />
     <ClInclude Include="core\hpp_physical_device.h" />
+    <ClInclude Include="core\hpp_queueu.h" />
+    <ClInclude Include="core\hpp_swapchain.h" />
     <ClInclude Include="core\vulkan_resource.h" />
+    <ClInclude Include="render\hpp_render_context.h" />
     <ClInclude Include="vulkan_sample.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
@@ -32,6 +35,9 @@
     <ClCompile Include="core\hpp_device.cpp" />
     <ClCompile Include="core\hpp_instance.cpp" />
     <ClCompile Include="core\hpp_physical_device.cpp" />
+    <ClCompile Include="core\hpp_queue.cpp" />
+    <ClCompile Include="core\hpp_swapchain.cpp" />
+    <ClCompile Include="render\hpp_render_context.cpp" />
     <ClCompile Include="vulkan_sample.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -95,7 +101,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include;$(SolutionDir)framework</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,7 +118,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include;$(SolutionDir)framework</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,7 +135,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include;$(SolutionDir)framework</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +154,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)third_party\include;$(SolutionDir)framework</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
